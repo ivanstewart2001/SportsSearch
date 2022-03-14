@@ -15,6 +15,11 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Root: {
         screens: {
+          Landing : {
+            screens : {
+              LandingScreen: 'landing'
+            }
+          },
           TabOne: {
             screens: {
               TabOneScreen: 'one',

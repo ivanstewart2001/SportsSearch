@@ -1,32 +1,55 @@
-import { StyleSheet } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { startLogout } from '../actions/auth'
+import { connect } from 'react-redux'
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+const HomeScreen = ({auth, startLogout} : {auth: any, startLogout:any}) => {
+  console.log(auth)
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+  const handleSignOut = () => {
+    startLogout()
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <Text>Email: {auth.currentUser?.email}</Text>
+      <TouchableOpacity
+        onPress={handleSignOut}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center'
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+   button: {
+    backgroundColor: '#0782F9',
+    width: '60%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 40,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  buttonText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 16,
   },
-});
+})
+
+const mapStateToProps = (state:any) => ({
+  auth: state.auth
+})
+
+const mapDispatchToProps = (dispatch:any) => ({
+  startLogout: () => dispatch(startLogout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
