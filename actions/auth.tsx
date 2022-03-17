@@ -17,14 +17,14 @@ const signUp = (user:UserAuthType) => ({
 
 export const startSignUp = (email:string, password:string) => {
     return (dispatch:any) => {
-        return auth.createUserWithEmailAndPassword(email, password).then((userCredentials) => {
+        return auth.createUserWithEmailAndPassword(email, password).then((userCredentials:any) => {
             const user = userCredentials.user
             if (user) {
                 const signUpObject = {uid:user.uid, email}
                 dispatch(signUp(signUpObject))
             }
         })
-        .catch((error) => {
+        .catch((error:any) => {
             const errorMessage = error.message;
             console.log(errorMessage)
         });
@@ -39,14 +39,14 @@ const login = (user:UserAuthType) => ({
 
 export const startLogin = (email:string, password:string) => {
     return (dispatch:any) => {
-        return auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
+        return auth.signInWithEmailAndPassword(email, password).then((userCredential:any) => {
             const user = userCredential.user;
             if (user) {
                 const logInObject = {uid:user.uid, email}
                 dispatch(login(logInObject))
             }
         })
-        .catch((error) => {
+        .catch((error:any) => {
             const errorMessage = error.message;
             console.log(errorMessage)
         });
@@ -62,7 +62,7 @@ export const startLogout = () => {
         auth.signOut().then(() => {
             navigation.navigate("AuthRoot")
             dispatch(logout())
-        }).catch((error)=> {
+        }).catch((error:any)=> {
             const errorMessage = error.message;
             console.log(errorMessage)
         })

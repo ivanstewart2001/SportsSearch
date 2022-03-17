@@ -5,8 +5,9 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { store } from './store/store'
+import { registerRootComponent } from 'expo';
 
-export default function App() {
+const App = () =>  {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
@@ -23,3 +24,6 @@ export default function App() {
     );
   }
 }
+
+registerRootComponent(App)
+export default App
